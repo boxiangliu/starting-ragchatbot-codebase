@@ -1,0 +1,423 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.7, pytest-8.4.2, pluggy-1.6.0 -- /Users/boxiang/Developer/claude_code/rag/starting-ragchatbot-codebase/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/boxiang/Developer/claude_code/rag/starting-ragchatbot-codebase
+configfile: pyproject.toml
+plugins: mock-3.15.1, anyio-4.9.0
+collecting ... collected 43 items
+
+tests/test_ai_generator.py::TestAIGeneratorInitialization::test_initialization PASSED
+tests/test_ai_generator.py::TestAIGeneratorSystemPrompt::test_system_prompt_includes_tools PASSED
+tests/test_ai_generator.py::TestAIGeneratorSystemPrompt::test_system_prompt_includes_outline_instructions PASSED
+tests/test_ai_generator.py::TestAIGeneratorToolCalling::test_generate_response_with_tools SKIPPED
+tests/test_ai_generator.py::TestAIGeneratorToolCalling::test_handle_tool_execution_structure 
+=== Test: Tool Execution Method Structure ===
+Parameters: ['initial_response', 'base_params', 'tool_manager']
+PASSED
+tests/test_ai_generator.py::TestAIGeneratorMocked::test_tool_use_response_handling 
+=== Test: Mocked Tool Use Response ===
+Result: This is the final answer
+Tool manager execute_tool called: True
+Number of API calls: 2
+PASSED
+tests/test_ai_generator.py::TestAIGeneratorMocked::test_direct_response_handling 
+=== Test: Mocked Direct Response ===
+Result: Direct answer without tools
+Number of API calls: 1
+PASSED
+tests/test_ai_generator.py::TestAIGeneratorMocked::test_tool_execution_error_handling 
+=== Test: Tool Execution Error ===
+Result: Error handled response
+Tool execution result: Tool error: Something went wrong
+PASSED
+tests/test_course_search_tool.py::TestCourseSearchToolDefinition::test_get_tool_definition PASSED
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_simple_query ERROR
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_course_filter ERROR
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_lesson_filter ERROR
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_both_filters ERROR
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_nonexistent_course ERROR
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_empty_results ERROR
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_tracks_sources ERROR
+tests/test_course_search_tool.py::TestCourseSearchToolFormatting::test_format_includes_course_context ERROR
+tests/test_course_search_tool.py::TestCourseSearchToolFormatting::test_format_includes_lesson_context ERROR
+tests/test_course_search_tool.py::TestVectorStoreIntegration::test_vector_store_search_called ERROR
+tests/test_course_search_tool.py::TestVectorStoreIntegration::test_handles_vector_store_errors ERROR
+tests/test_rag_system.py::TestRAGSystemInitialization::test_rag_system_components 
+=== Test: RAG System Components ===
+Has document_processor: True
+Has vector_store: True
+Has ai_generator: True
+Has session_manager: True
+Has tool_manager: True
+Has search_tool: True
+Has outline_tool: True
+PASSED
+tests/test_rag_system.py::TestRAGSystemInitialization::test_tools_registered 
+=== Test: Tools Registered ===
+Number of tools: 2
+Tool names: ['search_course_content', 'get_course_outline']
+PASSED
+tests/test_rag_system.py::TestRAGSystemQuery::test_query_method_exists 
+=== Test: Query Method ===
+Has query method: True
+Query parameters: ['query', 'session_id']
+PASSED
+tests/test_rag_system.py::TestRAGSystemQuery::test_query_with_mocked_ai FAILED
+tests/test_rag_system.py::TestRAGSystemQuery::test_query_passes_tools_to_ai 
+=== Test: Tools Passed to AI ===
+Call args: call(query='Answer this question about course materials: test query', conversation_history=None, tools=[{'name': 'search_course_content', 'description': 'Search course materials with smart course name matching and lesson filtering', 'input_schema': {'type': 'object', 'properties': {'query': {'type': 'string', 'description': 'What to search for in the course content'}, 'course_name': {'type': 'string', 'description': "Course title (partial matches work, e.g. 'MCP', 'Introduction')"}, 'lesson_number': {'type': 'integer', 'description': 'Specific lesson number to search within (e.g. 1, 2, 3)'}}, 'required': ['query']}}, {'name': 'get_course_outline', 'description': 'Get complete course outline including course title, link, instructor, and full lesson list with titles and links', 'input_schema': {'type': 'object', 'properties': {'course_name': {'type': 'string', 'description': "Course title or partial course name (e.g., 'MCP', 'Introduction', 'RAG')"}}, 'required': ['course_name']}}], tool_manager=<search_tools.ToolManager object at 0x100fd3e10>)
+Has 'tools' kwarg: True
+Has 'tool_manager' kwarg: True
+Tools passed: ['search_course_content', 'get_course_outline']
+PASSED
+tests/test_rag_system.py::TestRAGSystemToolExecution::test_search_tool_accessible_from_rag_system FAILED
+tests/test_rag_system.py::TestRAGSystemToolExecution::test_outline_tool_accessible_from_rag_system FAILED
+tests/test_rag_system.py::TestRAGSystemWithData::test_content_search_through_tool_manager ERROR
+tests/test_rag_system.py::TestRAGSystemWithData::test_vector_store_directly ERROR
+tests/test_rag_system.py::TestRAGSystemWithData::test_search_tool_directly ERROR
+tests/test_vector_store.py::TestVectorStoreInitialization::test_creates_collections 
+=== Test: Collection Creation ===
+Has course_catalog: True
+Has course_content: True
+PASSED
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_returns_results_object ERROR
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_valid_query ERROR
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_course_filter ERROR
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_lesson_filter ERROR
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_nonexistent_course ERROR
+tests/test_vector_store.py::TestVectorStoreData::test_add_course_metadata 
+=== Test: Add Course Metadata ===
+FAILED
+tests/test_vector_store.py::TestVectorStoreData::test_add_course_content 
+=== Test: Add Course Content ===
+Adding 3 chunks
+FAILED
+tests/test_vector_store.py::TestVectorStoreCourseResolution::test_resolve_course_name ERROR
+tests/test_vector_store.py::TestVectorStoreCourseResolution::test_resolve_course_name_fuzzy ERROR
+tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline ERROR
+tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline_with_lesson_details ERROR
+tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline_nonexistent ERROR
+
+==================================== ERRORS ====================================
+__ ERROR at setup of TestCourseSearchToolExecution.test_execute_simple_query ___
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestCourseSearchToolExecution.test_execute_with_course_filter _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestCourseSearchToolExecution.test_execute_with_lesson_filter _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestCourseSearchToolExecution.test_execute_with_both_filters _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestCourseSearchToolExecution.test_execute_nonexistent_course _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+__ ERROR at setup of TestCourseSearchToolExecution.test_execute_empty_results __
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestCourseSearchToolExecution.test_execute_tracks_sources __
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestCourseSearchToolFormatting.test_format_includes_course_context _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestCourseSearchToolFormatting.test_format_includes_lesson_context _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestVectorStoreIntegration.test_vector_store_search_called _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestVectorStoreIntegration.test_handles_vector_store_errors _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestRAGSystemWithData.test_content_search_through_tool_manager _
+tests/test_rag_system.py:243: in rag_system_with_data
+    system.vector_store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+______ ERROR at setup of TestRAGSystemWithData.test_vector_store_directly ______
+tests/test_rag_system.py:243: in rag_system_with_data
+    system.vector_store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+______ ERROR at setup of TestRAGSystemWithData.test_search_tool_directly _______
+tests/test_rag_system.py:243: in rag_system_with_data
+    system.vector_store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+__ ERROR at setup of TestVectorStoreSearch.test_search_returns_results_object __
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_____ ERROR at setup of TestVectorStoreSearch.test_search_with_valid_query _____
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+____ ERROR at setup of TestVectorStoreSearch.test_search_with_course_filter ____
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+____ ERROR at setup of TestVectorStoreSearch.test_search_with_lesson_filter ____
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+____ ERROR at setup of TestVectorStoreSearch.test_search_nonexistent_course ____
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+__ ERROR at setup of TestVectorStoreCourseResolution.test_resolve_course_name __
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestVectorStoreCourseResolution.test_resolve_course_name_fuzzy _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_______ ERROR at setup of TestVectorStoreOutline.test_get_course_outline _______
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestVectorStoreOutline.test_get_course_outline_with_lesson_details _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_ ERROR at setup of TestVectorStoreOutline.test_get_course_outline_nonexistent _
+tests/conftest.py:83: in vector_store
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+=================================== FAILURES ===================================
+_________________ TestRAGSystemQuery.test_query_with_mocked_ai _________________
+tests/test_rag_system.py:100: in test_query_with_mocked_ai
+    system.vector_store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+____ TestRAGSystemToolExecution.test_search_tool_accessible_from_rag_system ____
+tests/test_rag_system.py:178: in test_search_tool_accessible_from_rag_system
+    system.vector_store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+___ TestRAGSystemToolExecution.test_outline_tool_accessible_from_rag_system ____
+tests/test_rag_system.py:210: in test_outline_tool_accessible_from_rag_system
+    system.vector_store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_________________ TestVectorStoreData.test_add_course_metadata _________________
+tests/test_vector_store.py:128: in test_add_course_metadata
+    store.add_course_metadata(sample_course)
+vector_store.py:150: in add_course_metadata
+    self.course_catalog.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+_________________ TestVectorStoreData.test_add_course_content __________________
+tests/test_vector_store.py:155: in test_add_course_content
+    store.add_course_content(sample_chunks)
+vector_store.py:176: in add_course_content
+    self.course_content.add(
+../.venv/lib/python3.13/site-packages/chromadb/api/models/Collection.py:89: in add
+    self._client._add(
+../.venv/lib/python3.13/site-packages/chromadb/api/rust.py:407: in _add
+    return self.bindings.add(
+E   chromadb.errors.InternalError: Query error: Database error: error returned from database: (code: 1032) attempt to write a readonly database
+=========================== short test summary info ============================
+FAILED tests/test_rag_system.py::TestRAGSystemQuery::test_query_with_mocked_ai
+FAILED tests/test_rag_system.py::TestRAGSystemToolExecution::test_search_tool_accessible_from_rag_system
+FAILED tests/test_rag_system.py::TestRAGSystemToolExecution::test_outline_tool_accessible_from_rag_system
+FAILED tests/test_vector_store.py::TestVectorStoreData::test_add_course_metadata
+FAILED tests/test_vector_store.py::TestVectorStoreData::test_add_course_content
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_simple_query
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_course_filter
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_lesson_filter
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_both_filters
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_nonexistent_course
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_empty_results
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_tracks_sources
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolFormatting::test_format_includes_course_context
+ERROR tests/test_course_search_tool.py::TestCourseSearchToolFormatting::test_format_includes_lesson_context
+ERROR tests/test_course_search_tool.py::TestVectorStoreIntegration::test_vector_store_search_called
+ERROR tests/test_course_search_tool.py::TestVectorStoreIntegration::test_handles_vector_store_errors
+ERROR tests/test_rag_system.py::TestRAGSystemWithData::test_content_search_through_tool_manager
+ERROR tests/test_rag_system.py::TestRAGSystemWithData::test_vector_store_directly
+ERROR tests/test_rag_system.py::TestRAGSystemWithData::test_search_tool_directly
+ERROR tests/test_vector_store.py::TestVectorStoreSearch::test_search_returns_results_object
+ERROR tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_valid_query
+ERROR tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_course_filter
+ERROR tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_lesson_filter
+ERROR tests/test_vector_store.py::TestVectorStoreSearch::test_search_nonexistent_course
+ERROR tests/test_vector_store.py::TestVectorStoreCourseResolution::test_resolve_course_name
+ERROR tests/test_vector_store.py::TestVectorStoreCourseResolution::test_resolve_course_name_fuzzy
+ERROR tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline
+ERROR tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline_with_lesson_details
+ERROR tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline_nonexistent
+============== 5 failed, 13 passed, 1 skipped, 24 errors in 4.54s ==============

@@ -1,0 +1,61 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.7, pytest-8.4.2, pluggy-1.6.0 -- /Users/boxiang/Developer/claude_code/rag/starting-ragchatbot-codebase/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/boxiang/Developer/claude_code/rag/starting-ragchatbot-codebase
+configfile: pyproject.toml
+plugins: mock-3.15.1, anyio-4.9.0
+collecting ... collected 43 items
+
+tests/test_ai_generator.py::TestAIGeneratorInitialization::test_initialization PASSED [  2%]
+tests/test_ai_generator.py::TestAIGeneratorSystemPrompt::test_system_prompt_includes_tools PASSED [  4%]
+tests/test_ai_generator.py::TestAIGeneratorSystemPrompt::test_system_prompt_includes_outline_instructions PASSED [  6%]
+tests/test_ai_generator.py::TestAIGeneratorToolCalling::test_generate_response_with_tools SKIPPED [  9%]
+tests/test_ai_generator.py::TestAIGeneratorToolCalling::test_handle_tool_execution_structure PASSED [ 11%]
+tests/test_ai_generator.py::TestAIGeneratorMocked::test_tool_use_response_handling PASSED [ 13%]
+tests/test_ai_generator.py::TestAIGeneratorMocked::test_direct_response_handling PASSED [ 16%]
+tests/test_ai_generator.py::TestAIGeneratorMocked::test_tool_execution_error_handling PASSED [ 18%]
+tests/test_course_search_tool.py::TestCourseSearchToolDefinition::test_get_tool_definition PASSED [ 20%]
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_simple_query PASSED [ 23%]
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_course_filter PASSED [ 25%]
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_lesson_filter PASSED [ 27%]
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_with_both_filters PASSED [ 30%]
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_nonexistent_course FAILED [ 32%]
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_empty_results PASSED [ 34%]
+tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_tracks_sources PASSED [ 37%]
+tests/test_course_search_tool.py::TestCourseSearchToolFormatting::test_format_includes_course_context PASSED [ 39%]
+tests/test_course_search_tool.py::TestCourseSearchToolFormatting::test_format_includes_lesson_context PASSED [ 41%]
+tests/test_course_search_tool.py::TestVectorStoreIntegration::test_vector_store_search_called PASSED [ 44%]
+tests/test_course_search_tool.py::TestVectorStoreIntegration::test_handles_vector_store_errors PASSED [ 46%]
+tests/test_rag_system.py::TestRAGSystemInitialization::test_rag_system_components PASSED [ 48%]
+tests/test_rag_system.py::TestRAGSystemInitialization::test_tools_registered PASSED [ 51%]
+tests/test_rag_system.py::TestRAGSystemQuery::test_query_method_exists PASSED [ 53%]
+tests/test_rag_system.py::TestRAGSystemQuery::test_query_with_mocked_ai PASSED [ 55%]
+tests/test_rag_system.py::TestRAGSystemQuery::test_query_passes_tools_to_ai PASSED [ 58%]
+tests/test_rag_system.py::TestRAGSystemToolExecution::test_search_tool_accessible_from_rag_system PASSED [ 60%]
+tests/test_rag_system.py::TestRAGSystemToolExecution::test_outline_tool_accessible_from_rag_system PASSED [ 62%]
+tests/test_rag_system.py::TestRAGSystemWithData::test_content_search_through_tool_manager PASSED [ 65%]
+tests/test_rag_system.py::TestRAGSystemWithData::test_vector_store_directly PASSED [ 67%]
+tests/test_rag_system.py::TestRAGSystemWithData::test_search_tool_directly PASSED [ 69%]
+tests/test_vector_store.py::TestVectorStoreInitialization::test_creates_collections PASSED [ 72%]
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_returns_results_object PASSED [ 74%]
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_valid_query PASSED [ 76%]
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_course_filter PASSED [ 79%]
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_with_lesson_filter PASSED [ 81%]
+tests/test_vector_store.py::TestVectorStoreSearch::test_search_nonexistent_course FAILED [ 83%]
+tests/test_vector_store.py::TestVectorStoreData::test_add_course_metadata PASSED [ 86%]
+tests/test_vector_store.py::TestVectorStoreData::test_add_course_content PASSED [ 88%]
+tests/test_vector_store.py::TestVectorStoreCourseResolution::test_resolve_course_name PASSED [ 90%]
+tests/test_vector_store.py::TestVectorStoreCourseResolution::test_resolve_course_name_fuzzy PASSED [ 93%]
+tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline PASSED [ 95%]
+tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline_with_lesson_details PASSED [ 97%]
+tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline_nonexistent FAILED [100%]
+
+=================================== FAILURES ===================================
+/Users/boxiang/Developer/claude_code/rag/starting-ragchatbot-codebase/backend/tests/test_course_search_tool.py:94: AssertionError: assert ('No course found' in '[Test Course on Machine Learning - Lesson 0]\nThis is an introduction to machine learning. Machine learning is a subset of artificial intelligence.\n\n[Test Course on Machine Learning - Lesson 2]\nDeep learning is a subset of machine learning that uses multi-layered neural networks.\n\n[Test Course on Machine Learning - Lesson 2]\nNeural networks are computing systems inspired by biological neural networks. They consist of layers of interconnected nodes.' or 'No relevant content' in '[Test Course on Machine Learning - Lesson 0]\nThis is an introduction to machine learning. Machine learning is a subset of artificial intelligence.\n\n[Test Course on Machine Learning - Lesson 2]\nDeep learning is a subset of machine learning that uses multi-layered neural networks.\n\n[Test Course on Machine Learning - Lesson 2]\nNeural networks are computing systems inspired by biological neural networks. They consist of layers of interconnected nodes.')
+/Users/boxiang/Developer/claude_code/rag/starting-ragchatbot-codebase/backend/tests/test_vector_store.py:108: AssertionError: assert (None is not None or False)
+/Users/boxiang/Developer/claude_code/rag/starting-ragchatbot-codebase/backend/tests/test_vector_store.py:239: AssertionError: assert {'course_link': 'https://example.com/ml-course', 'course_title': 'Test Course on Machine Learning', 'instructor': 'Dr. Test', 'lessons': [{'lesson_link': 'https://example.com/lesson0', 'lesson_number': 0, 'lesson_title': 'Introduction'}, {'lesson_link': 'https://example.com/lesson1', 'lesson_number': 1, 'lesson_title': 'Basics of ML'}, {'lesson_link': 'https://example.com/lesson2', 'lesson_number': 2, 'lesson_title': 'Neural Networks'}]} is None
+=========================== short test summary info ============================
+FAILED tests/test_course_search_tool.py::TestCourseSearchToolExecution::test_execute_nonexistent_course
+FAILED tests/test_vector_store.py::TestVectorStoreSearch::test_search_nonexistent_course
+FAILED tests/test_vector_store.py::TestVectorStoreOutline::test_get_course_outline_nonexistent
+=================== 3 failed, 39 passed, 1 skipped in 7.31s ====================
