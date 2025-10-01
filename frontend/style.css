@@ -22,6 +22,7 @@
     --focus-ring: rgba(37, 99, 235, 0.2);
     --welcome-bg: #1e3a5f;
     --welcome-border: #2563eb;
+    --z-theme-toggle: 1000;
 }
 
 /* Light Theme */
@@ -801,8 +802,9 @@ details[open] .suggested-header::before {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: var(--z-theme-toggle);
     box-shadow: var(--shadow);
+    will-change: transform;
 }
 
 .theme-toggle:hover {
@@ -816,19 +818,22 @@ details[open] .suggested-header::before {
     box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
 .theme-toggle svg {
     color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
 /* Show/hide icons based on theme */
-[data-theme="dark"] .theme-toggle .sun-icon,
-:root:not([data-theme]) .theme-toggle .sun-icon {
+.theme-toggle .sun-icon {
     display: block;
 }
 
-[data-theme="dark"] .theme-toggle .moon-icon,
-:root:not([data-theme]) .theme-toggle .moon-icon {
+.theme-toggle .moon-icon {
     display: none;
 }
 
@@ -842,11 +847,11 @@ details[open] .suggested-header::before {
 
 /* Adjust code blocks for light mode */
 [data-theme="light"] .message-content code {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="light"] .message-content pre {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.08);
 }
 
 /* Responsive adjustment for theme toggle */
